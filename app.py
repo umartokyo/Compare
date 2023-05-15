@@ -16,9 +16,9 @@ def new_comparison():
 def comparison():
     return "Comparison X"
 
-@app.route("/<int:comparison_id>/play")
-def play():
-    return "Play"
+@app.route("/<int:comparison_id>/compare")
+def compare():
+    return "Compare"
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
