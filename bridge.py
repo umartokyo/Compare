@@ -157,5 +157,3 @@ def test():
     print("History:")
     print(show_history())
     get_random_objects(key)
-
-test()

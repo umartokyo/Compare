@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compare</title>
+</head>
+<body>
+    <h1>Comparison: {{ comparison_id }}</h1>
+    <form action="" method="post">
+        <div>
+            <input type="radio" id="{{ object1_id }}" name="winner" value="{{ object1_id }}">
+            <label for="{{ object1_id }}">{{ object1 }}</label>
+        </div>
+        <div>
+            <input type="radio" id="{{ object2_id }}" name="winner" value="{{ object2_id }}">
+            <label for="{{ object2_id }}">{{ object2 }}</label>
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+    <button onclick="location.href='{{ url_for('comparison_route', comparison_id=comparison_id) }}'">Back to Scores</button>
+</body>
+</html>

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Comparison</title>
+</head>
+<body>
+    <h1>Comparison: {{ title }}</h1>
+    <h2>Objects:</h2>
+    {% for object in objects %}
+        <p>{{ object[1] }} (Score: {{ object[2] }})</p>
+    {% endfor %}
+    <a href="{{ url_for('compare_route', comparison_id=comparison_id) }}">Play</a>
+</body>
+</html>
