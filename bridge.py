@@ -1,4 +1,5 @@
 import sqlite3
+import random
 import json
 
 # Pathways to files.
@@ -108,6 +109,33 @@ def compare(object1_id, object2_id, did_object1_win):
     connection.commit()
     connection.close()
 
+# Gets two random objects 
+def get_random_objects(comparison_id):
+    connection = get_connection()
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM Objects WHERE comparison_id = ?", (comparison_id,))
+    objects = cursor.fetchall()
+    connection.close()
+
+    if len(objects) < 2:
+        return None, None
+
+    object1, object2 = random.sample(objects, 2)
+    return object1, object2
+
+# Returns a title of an object
+def get_object_title(object_id):
+    connection = get_connection()
+    cursor = connection.cursor()
+    cursor.execute("SELECT title FROM Objects WHERE id = ?", (object_id,))
+    result = cursor.fetchall()
+    connection.close()
+
+    if result is None:
+        return None
+    
+    return result[0]
+
 # Just testing if everything works.
 def test():
     create_db()
@@ -116,6 +144,8 @@ def test():
     print(show_comparison())
     object1_id = add_object_to_comparison("Apple", key)
     object2_id = add_object_to_comparison("Banana", key)
+    object3_id = add_object_to_comparison("Baby", key)
+    object4_id = add_object_to_comparison("Adult", key)
     print("Objects:")
     print(show_objects())
     compare(object1_id, object2_id, True)
@@ -126,3 +156,6 @@ def test():
     print(show_objects())
     print("History:")
     print(show_history())
+    get_random_objects(key)
+
+test()
