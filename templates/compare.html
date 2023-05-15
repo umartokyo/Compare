@@ -1,23 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Compare</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <h1>Comparison: {{ comparison_id }}</h1>
-    <form action="" method="post">
-        <div>
-            <input type="radio" id="{{ object1_id }}" name="winner" value="{{ object1_id }}">
-            <label for="{{ object1_id }}">{{ object1 }}</label>
-        </div>
-        <div>
-            <input type="radio" id="{{ object2_id }}" name="winner" value="{{ object2_id }}">
-            <label for="{{ object2_id }}">{{ object2 }}</label>
-        </div>
-        <button type="submit">Submit</button>
-    </form>
-    <button onclick="location.href='{{ url_for('comparison_route', comparison_id=comparison_id) }}'">Back to Scores</button>
+    <div class="container">
+        <h1>Compare</h1>
+        <form action="{{ url_for('compare_route', comparison_id=comparison_id) }}" method="post">
+            <div class="compare-objects">
+                <div class="compare-object">
+                    <input type="radio" id="object1" name="winner" value="{{ object1_id }}">
+                    <label for="object1">{{ object1 }}</label>
+                </div>
+                <div class="compare-object">
+                    <input type="radio" id="object2" name="winner" value="{{ object2_id }}">
+                    <label for="object2">{{ object2 }}</label>
+                </div>
+            </div>
+            <div class="compare-actions">
+                <button type="submit" class="button">Submit</button>
+                <a href="{{ url_for('comparison_route', comparison_id=comparison_id) }}" class="button">Back to Scores</a>
+            </div>
+        </form>
+    </div>
 </body>
 </html>

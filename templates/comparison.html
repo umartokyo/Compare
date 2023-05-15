@@ -1,14 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Comparison</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <h1>Comparison: {{ title }}</h1>
-    <h2>Objects:</h2>
-    {% for object in objects %}
-        <p>{{ object[1] }} (Score: {{ object[2] }})</p>
-    {% endfor %}
-    <a href="{{ url_for('compare_route', comparison_id=comparison_id) }}">Play</a>
+    <div class="container">
+        <h1>Comparison: {{ title }}</h1>
+        <h2>Objects:</h2>
+        {% for object in objects %}
+            <div class="object">
+                <p class="object-title">{{ object[1] }}</p>
+                <p class="object-score">Score: {{ object[2] }}</p>
+            </div>
+        {% endfor %}
+        <a href="{{ url_for('compare_route', comparison_id=comparison_id) }}" class="button">Play</a>
+        <a href="/" class="button">Back to Home</a>
+    </div>
 </body>
 </html>

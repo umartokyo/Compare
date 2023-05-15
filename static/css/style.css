@@ -1,0 +1,66 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #EAEDED;
+}
+
+.container {
+    background-color: #F1F3F4;
+    border-radius: 20px;
+    box-shadow: 10px 10px 20px #C0C6C8, -10px -10px 20px #FFFFFF;
+    padding: 20px;
+}
+
+.button {
+    background-color: #8BC6EC;
+    color: #FFFFFF;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    box-shadow: 5px 5px 10px #C0C6C8, -5px -5px 10px #FFFFFF;
+}
+
+.comparison {
+    margin-bottom: 10px;
+}
+
+.comparison-link {
+    text-decoration: none;
+    color: #000000;
+    font-weight: bold;
+}
+
+.object {
+    background-color: #F1F3F4;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-shadow: 5px 5px 10px #C0C6C8, -5px -5px 10px #FFFFFF;
+}
+
+.object-title {
+    margin: 0;
+    font-weight: bold;
+}
+
+.object-score {
+    margin: 0;
+    color: #8BC6EC;
+}
+
+.compare-objects {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.compare-object {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.compare-actions {
+    display: flex;
+    justify-content: center;
+}

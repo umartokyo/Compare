@@ -1,18 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <h1>Welcome to the Comparison App</h1>
-    <form action="/new" method="post">
-        <label for="title">Comparison Title:</label><br>
-        <input type="text" id="title" name="title"><br>
-        <input type="submit" value="Create New Comparison">
-    </form>
-    <h2>Existing Comparisons:</h2>
-    {% for comparison in comparisons %}
-        <p><a href="{{ url_for('comparison_route', comparison_id=comparison[0]) }}">{{ comparison[1] }}</a></p>
-    {% endfor %}
+    <div class="container">
+        <h1>Welcome to the Comparison App</h1>
+        <form action="/new" method="post">
+            <label for="title">Comparison Title:</label>
+            <input type="text" id="title" name="title">
+            <input type="submit" value="Create New Comparison" class="button">
+        </form>
+        <h2>Existing Comparisons:</h2>
+        {% for comparison in comparisons %}
+            <div class="comparison">
+                <a href="{{ url_for('comparison_route', comparison_id=comparison[0]) }}" class="comparison-link">{{ comparison[1] }}</a>
+            </div>
+        {% endfor %}
+    </div>
 </body>
 </html>
