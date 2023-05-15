@@ -14,6 +14,17 @@ def get_connection():
     connection = sqlite3.connect(database_file_path)
     return connection
 
+# Creating the database
+def create_db():
+    # Creating sqlite database. (database.db)
+    connection = sqlite3.connect(database_file_path)
+    with open(schema_file_path) as schema_file:
+        connection.executescript(schema_file.read())
+    
+    # Closing connections.
+    connection.commit()
+    connection.close()
+
 # Returning all objects & history from comparison
 def show_comparison():
     connection = get_connection()
@@ -21,7 +32,25 @@ def show_comparison():
     cursor.execute("SELECT * FROM Comparisons")
     comparisons = cursor.fetchall()
     connection.close()
-    return json.dump(comparisons)
+    return json.dumps(comparisons)
+
+# Returning all objects from comparison
+def show_objects():
+    connection = get_connection()
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM Objects")
+    objects = cursor.fetchall()
+    connection.close()
+    return json.dumps(objects)
+
+# Returning all history from comparison
+def show_history():
+    connection = get_connection()
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM History")
+    history = cursor.fetchall()
+    connection.close()
+    return json.dumps(history)
 
 # Creating new comparison
 def new_comparison(title):
@@ -38,14 +67,17 @@ def add_object_to_comparison(title, comparison_id):
     connection = get_connection()
     cursor = connection.cursor()
     cursor.execute("INSERT INTO Objects (title, score, comparison_id) VALUES (?, ?, ?)", (title, default_score, comparison_id))
+    object_id = cursor.lastrowid
     connection.commit()
     connection.close()
+    return object_id
 
 # Comparing two objects together (Using Elo rating system)
 def compare(object1_id, object2_id, did_object1_win):
     connection = get_connection()
     cursor = connection.cursor()
-    
+
+    # Getting current scores of players
     cursor.execute("SELECT score FROM Objects WHERE id = ?", (object1_id,))
     score1 = cursor.fetchone()[0]
 
@@ -76,3 +108,21 @@ def compare(object1_id, object2_id, did_object1_win):
     connection.commit()
     connection.close()
 
+# Just testing if everything works.
+def test():
+    create_db()
+    key = new_comparison("Test_Compare")
+    print("Comparisons:")
+    print(show_comparison())
+    object1_id = add_object_to_comparison("Apple", key)
+    object2_id = add_object_to_comparison("Banana", key)
+    print("Objects:")
+    print(show_objects())
+    compare(object1_id, object2_id, True)
+    print("Objects: (after 1 game)")
+    print(show_objects())
+    compare(object1_id, object2_id, True)
+    print("Objects: (after 2 game)")
+    print(show_objects())
+    print("History:")
+    print(show_history())
