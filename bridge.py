@@ -157,3 +157,26 @@ def test():
     print("History:")
     print(show_history())
     get_random_objects(key)
+
+def new_object(object_title, comparison_id):
+    # Get a connection to the database
+    conn = sqlite3.connect(database_file_path)
+
+    # Create a cursor object
+    cursor = conn.cursor()
+
+    # Insert a new object into the Objects table
+    cursor.execute("""
+        INSERT INTO Objects (title, score, comparison_id)
+        VALUES (?, ?, ?)
+    """, (object_title, default_score, comparison_id))
+
+    # Get the id of the new object
+    new_object_id = cursor.lastrowid
+
+    # Commit the transaction and close the connection
+    conn.commit()
+    conn.close()
+
+    # Return the id of the new object
+    return new_object_id

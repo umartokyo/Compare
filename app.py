@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, request, render_template, redirect, url_for
-from bridge import new_comparison, get_random_objects, compare, get_object_title, show_comparison, show_objects
+from bridge import new_comparison, get_random_objects, compare, get_object_title, show_comparison, show_objects, new_object
 import os
 import json
 
@@ -14,6 +14,18 @@ def home():
         return redirect(url_for('comparison_route', comparison_id=comparison_id))
     comparisons = json.loads(show_comparison())
     return render_template('home.html', comparisons=comparisons)
+
+@app.route('/new', methods=['POST'])
+def new_comparison_route():
+    title = request.form['title']
+    comparison_id = new_comparison(title)
+    return redirect(url_for('comparison_route', comparison_id=comparison_id))
+
+@app.route("/<int:comparison_id>/new_object", methods=['POST'])
+def new_object_route(comparison_id):
+    object_title = request.form['object_title']
+    new_object(object_title, comparison_id)
+    return redirect(url_for('comparison_route', comparison_id=comparison_id))
 
 @app.route("/<int:comparison_id>", methods=['GET'])
 def comparison_route(comparison_id):
