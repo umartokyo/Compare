@@ -26,6 +26,9 @@
                 <a href="{{ url_for('comparison_route', comparison_id=comparison_id) }}" class="button">Back to Scores</a>
             </div>
         </form>
+        <form action="{{ url_for('comparison_route', comparison_id=comparison_id) }}" method="get">
+            <input type="submit" value="Return to Comparison">
+        </form>
     </div>
 </body>
 </html>
